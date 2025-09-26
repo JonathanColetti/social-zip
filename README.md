@@ -3,7 +3,7 @@
 
 [TikTok](https://www.tiktok.com/@social..zip)  
 
-![App Store Image](/mnt/data/9d7cb5b6-a2be-4ddc-951e-44971a19e6a3.png)  
+![App Store Image](/mnt/data/9d7cb5b6-a2be-4ddc-951e-44971a19e6a3.PNG)  
 
 **Status:** Coming Soon / Not Open Source Yet  
 
