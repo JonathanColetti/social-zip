@@ -36,7 +36,8 @@ app is built with a modern and scalable tech stack:
 **AWS DynamoDB** 
 - Scalable NoSQL database for fast and reliable storage. (DynamoDB)  
 - High availability storage with secure signing (S3)
-    - App backups
+- Route 53 for DNS management
+- IAM for least principle access
 **Google Cloud Storage (GCS)** 
 – Horizontal scaling for servers 
 **React Native** 
