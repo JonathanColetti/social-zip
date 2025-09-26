@@ -22,6 +22,7 @@ A cross-platform (web, Android, iOS) social media app that supports creation of 
 - Blocking features
 - Private accounts / friends
 - Name changing and unique usernames
+- Emailing texting
 
 ## Technology Stack
 The app is built with a modern and scalable tech stack:
@@ -32,7 +33,8 @@ The app is built with a modern and scalable tech stack:
 - **AWS DynamoDB** – Scalable NoSQL database for fast and reliable storage  
   - High availability storage with secure signing (S3)  
   - Route 53 for DNS management  
-  - IAM for least-privilege access  
+  - IAM for least-privilege access
+  - SNS for email related queries (2FA, etc)
 - **Google Cloud Storage (GCS)** – Horizontal scaling for servers  
 - **React Native** – Cross-platform mobile app development  
 - **VectorDB (Weaviate)** – Semantic search and vector embeddings  
