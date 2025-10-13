@@ -1,29 +1,21 @@
-# SOCIAL.ZIP (Backend)
-An opensourced social media platform that puts article format into a social media enviroment
+# IMPORTANT INFO
 
-![Logo](https://media-exp1.licdn.com/dms/image/C4D0BAQEwg5FK93uumQ/company-logo_200_200/0/1519923012279?e=2147483647&v=beta&t=63CNoS8OTR4lHjPhHSO7eFFqwLGwYunWfyDBV3tdc0c)
-![AppImage](https://media-exp1.licdn.com/dms/image/C4D0BAQEwg5FK93uumQ/company-logo_200_200/0/1519923012279?e=2147483647&v=beta&t=63CNoS8OTR4lHjPhHSO7eFFqwLGwYunWfyDBV3tdc0c)
+There exists a lot I would do better (design and code) wise. This was written (October 13th 2023) and thus throughout my experience I have learned alot. If I find the time I would love to refactor this code and system. However, it is still a good showcase of work!
 
-## Backend Technologies
-- Nodejs
-  - Runtime
-- Express
-  - Oauth handling
-- Redis cache
-  - Cache for most used data 
-- DynamoDb
-  - Fast User auth & notifications
-- Dgraph
-  - Colaborative filtering
-  - relationships and storing of data
-- Weaviate
-  - Content search/content similarity
-- Cohere
-  - Tokenization for vector similarity search with weaviate
+# How to run
 
-## How to commit
+You need to generate the certs directory. Which contains the files
 
-Please use the prettier format and any new technologies should raised as issues 
+```
+apple_key.p8
+cert.pem
+chain.pem
+fullchain.pem
+privkey.pem
+```
+For obvious reasons I will not provide these files
+
+## Dockerfile
 
 
 
