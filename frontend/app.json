@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "socialzip",
+    "slug": "socialzip",
+    "scheme": "socialzip",
+    "owner": "14937830-canada-inc",
+    "version": "1.0.2",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.14937830CANADAINC.socialzip",
+      "associatedDomains": [
+        "applinks:backend.socialzip.net"
+      ],
+      "InfoPlist": {
+        "LSApplicationQueriesSchemes": "socialzip"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.so.socialzip"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-localization"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "363e4377-cd4b-4d78-af1a-6f3b4d887b89"
+      }
+    }
+  }
+}
