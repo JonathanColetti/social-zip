@@ -1,6 +1,7 @@
 {
   "name": "social.zip",
   "version": "1.0.0",
+  "author": "Jonathan Coletti <jonathancoletti0@gmail.com>",
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",
