@@ -69,6 +69,7 @@ async function GetHashtagPosts(
   pageNum: number,
   pageSize: number = 5
 ): Promise<PostNeo[]> {
+  pageSize = Math.min(pageSize, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     const params = {
@@ -104,6 +105,7 @@ async function HashtagRecomendation(
   pageNum: number,
   pageSize: number = 5
 ): Promise<string[]> {
+  pageSize = Math.min(pageSize, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     const vars = {
@@ -141,6 +143,7 @@ async function GetNewestHashtagPosts(
   pageNum: number,
   pageSize: number = 5
 ): Promise<PostNeo[]> {
+  pageSize = Math.min(pageSize, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     const params = {
@@ -188,6 +191,7 @@ async function FriendSuggestion(
   pageNum: number,
   pageSize: number = 5
 ): Promise<IMiniUser[]> {
+  pageSize = Math.min(pageSize, 50);
   const vars = {
     $a: username,
     $o: String(pageNum * pageSize),
@@ -218,6 +222,7 @@ async function GetTopPosts(
   pageNum: number,
   pageSize: number = 5
 ): Promise<PostNeo[]> {
+  pageSize = Math.min(pageSize, 50);
   const vars = {
     $o: String(pageNum * pageSize),
     $f: String(pageSize),
@@ -305,6 +310,7 @@ async function GetLikedPosts(
   pageNum: number,
   pageSize: number = 5
 ): Promise<PostNeo[]> {
+  pageSize = Math.min(pageSize, 50);
   const vars = {
     $a: username,
     $o: String(pageNum * pageSize),
@@ -334,6 +340,7 @@ async function GetHistoryPosts(
   pageNum: number,
   pageSize: number = 5
 ): Promise<PostNeo[]> {
+  pageSize = Math.min(pageSize, 50);
   const vars = {
     $a: username,
     $o: String(pageNum * pageSize),
@@ -361,6 +368,7 @@ async function GetFollowingPosts(
   pageNum: number,
   pageSize: number = 5
 ): Promise<PostNeo[]> {
+  pageSize = Math.min(pageSize, 50);
   const vars = {
     $a: username,
     $o: String(pageNum * pageSize),
@@ -389,6 +397,7 @@ async function GetUserPosts(
   pageNum: number,
   pageSize: number = 5
 ): Promise<PostNeo[]> {
+  pageSize = Math.min(pageSize, 50);
   const vars = {
     $a: username,
     $o: String(pageNum * pageSize),
@@ -516,6 +525,7 @@ async function GetPinnedHashtags(
   pageNum: number,
   pageSize: number = 5
 ): Promise<string[]> {
+  pageSize = Math.min(pageSize, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     const hashtags = await txn.queryWithVars(GetPinnedHashtagsQuery, {
@@ -548,6 +558,7 @@ async function GetMostPinnedHashtags(
   pageNum: number,
   pageSize: number = 5
 ): Promise<IDHashtag[]> {
+  pageSize = Math.min(pageSize, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     const hashtags = await txn.queryWithVars(GetMostPinnedHashtagsQuery, {
@@ -574,6 +585,7 @@ async function GetMostFollowedUser(
   pageNum: number,
   pageSize: number = 5
 ): Promise<IMiniUser[]> {
+  pageSize = Math.min(pageSize, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     let query = MostFollowedUsersQuery;
@@ -605,6 +617,7 @@ async function GetComments(
   pageNum: number,
   pageSize: number = 5
 ): Promise<IComment[]> {
+  pageSize = Math.min(pageSize, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     const comments = await txn.queryWithVars(GetCommentsQuery, {
@@ -668,6 +681,7 @@ async function GetBlockedUsers(
   pageNum: number,
   pageSize: number = 5
 ): Promise<string[]> {
+  pageSize = Math.min(pageSize, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     const blockedUsers = await txn.queryWithVars(GetBlockedUsersQuery, {
@@ -693,6 +707,7 @@ async function GetFollowRequests(
   pageNum: number,
   pageSize: number = 5
 ): Promise<IMiniUser[]> {
+  pageSize = Math.min(pageSize, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     const followRequests = await txn.queryWithVars(GetFollowRequestsQuery, {
