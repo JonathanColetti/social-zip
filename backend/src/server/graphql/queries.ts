@@ -249,7 +249,7 @@ const Queries = {
     getUserPosts: async (
       _parent: unknown,
       args: { username: string; pageNum: number },
-      context: string,
+      _context: string,
       _info: unknown
     ): Promise<UserPosts[]> => {
       let { username, pageNum } = args;
@@ -293,7 +293,7 @@ const Queries = {
     getPostsBySearch: async (
       _parent: unknown,
       args: { query: string; pageNum: number },
-      context: string,
+      _context: string,
       _info: unknown
     ): Promise<ITiniPost[]> => {
       const { query, pageNum } = args;
@@ -302,7 +302,7 @@ const Queries = {
     getHashtagsBySearch: async (
       _parent: unknown,
       args: { query: string; pageNum: number },
-      context: string,
+      _context: string,
       _info: unknown
     ): Promise<string[]> => {
       let { query, pageNum } = args;
@@ -530,7 +530,7 @@ const Queries = {
     getComments: async (
       _parent: unknown,
       args: { postId: string; pageNum: number },
-      context: string,
+      _context: string,
       _info: unknown
     ): Promise<IComment[]> => {
       const { postId, pageNum } = args;

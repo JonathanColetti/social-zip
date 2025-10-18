@@ -70,6 +70,7 @@ async function GetHashtagPosts(
   pageSize: number = 5
 ): Promise<PostNeo[]> {
   pageSize = Math.min(pageSize, 50);
+  pageNum = Math.min(pageNum, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     const params = {
@@ -88,6 +89,7 @@ async function GetHashtagPosts(
 
     return hPosts.getJson().getPosts;
   } catch (err) {
+    console.error(err, `GetTopHashtagPosts has an error with username: ${username}, hashtag: ${hashtag}, pageNum: ${pageNum}, pageSize: ${pageSize}`)
     return [];
   } finally {
     await txn.discard();
@@ -106,6 +108,7 @@ async function HashtagRecomendation(
   pageSize: number = 5
 ): Promise<string[]> {
   pageSize = Math.min(pageSize, 50);
+  pageNum = Math.min(pageNum, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     const vars = {
@@ -144,6 +147,7 @@ async function GetNewestHashtagPosts(
   pageSize: number = 5
 ): Promise<PostNeo[]> {
   pageSize = Math.min(pageSize, 50);
+  pageNum = Math.min(pageNum, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     const params = {
@@ -173,6 +177,7 @@ async function GetComment(commentId: string): Promise<IComment> {
     });
     return comment.getJson().findComment[0] as IComment;
   } catch (err) {
+    console.error(err, `GetComment has an error ${commentId}`);
     return;
   } finally {
     await txn.discard();
@@ -192,6 +197,7 @@ async function FriendSuggestion(
   pageSize: number = 5
 ): Promise<IMiniUser[]> {
   pageSize = Math.min(pageSize, 50);
+  pageNum = Math.min(pageNum, 50);
   const vars = {
     $a: username,
     $o: String(pageNum * pageSize),
@@ -204,6 +210,7 @@ async function FriendSuggestion(
     if (res.getJson().TopRecommendations.length <= 0) return [];
     return res.getJson().TopRecommendations as IMiniUser[];
   } catch (err) {
+    console.error(err, `Friend Suggestion failed with username: ${username} pageNum: ${pageNum}, pageSize: ${pageSize}`);
     return [];
   } finally {
     await txn.discard();
@@ -223,6 +230,7 @@ async function GetTopPosts(
   pageSize: number = 5
 ): Promise<PostNeo[]> {
   pageSize = Math.min(pageSize, 50);
+  pageNum = Math.min(pageNum, 50);
   const vars = {
     $o: String(pageNum * pageSize),
     $f: String(pageSize),
@@ -237,6 +245,7 @@ async function GetTopPosts(
     const posts = await txn.queryWithVars(query, vars);
     return posts.getJson().findPost as PostNeo[];
   } catch (err) {
+    console.error(err, `Get Top Posts failed with username: ${username} pageNum: ${pageNum}, pageSize: ${pageSize}`);
     return [];
   } finally {
     await txn.discard();
@@ -253,6 +262,7 @@ async function DidLikePost(username: string, postId: string): Promise<boolean> {
     if (user.getJson().findProfile.length <= 0) return false;
     return true;
   } catch (err) {
+    console.error(err, `Did LikePosts failed with username: ${username} postId: ${postId}`);
     return false;
   } finally {
     await txn.discard();
@@ -272,6 +282,7 @@ async function IsBlocked(
     if (isBlocked.getJson().findProfile.length <= 0) return false;
     return true;
   } catch (err) {
+    console.error(err, `IsBlocked failed with username: ${username} blockedUsername: ${blockedUsername}`);
     return false;
   } finally {
     await txn.discard();
@@ -292,6 +303,7 @@ async function GetPostUid(postId: string): Promise<string | false> {
     if (postUid.getJson().findPost.length <= 0) return false;
     return postUid.getJson().findPost[0].uid as string;
   } catch (err) {
+    console.error(err, `GetPostUid failed with post id: ${postId}`);
     return false;
   } finally {
     await txn.discard();
@@ -311,6 +323,7 @@ async function GetLikedPosts(
   pageSize: number = 5
 ): Promise<PostNeo[]> {
   pageSize = Math.min(pageSize, 50);
+  pageNum = Math.min(pageNum, 50);
   const vars = {
     $a: username,
     $o: String(pageNum * pageSize),
@@ -322,6 +335,7 @@ async function GetLikedPosts(
     if (res.getJson().findProfile.length <= 0) return [];
     return res.getJson().findProfile[0].liked as PostNeo[];
   } catch (err) {
+    console.error(err, `Get Liked Posts failed with username: ${username} pageNum: ${pageNum}, pageSize: ${pageSize}`);
     return [];
   } finally {
     await txn.discard();
@@ -341,6 +355,7 @@ async function GetHistoryPosts(
   pageSize: number = 5
 ): Promise<PostNeo[]> {
   pageSize = Math.min(pageSize, 50);
+  pageNum = Math.min(pageNum, 50);
   const vars = {
     $a: username,
     $o: String(pageNum * pageSize),
@@ -351,6 +366,7 @@ async function GetHistoryPosts(
     const res = await txn.queryWithVars(GetUserViewedPostsQuery, vars);
     return res.getJson().findProfile[0].viewed as PostNeo[];
   } catch (err) {
+    console.error(err, `Get History Posts failed with username: ${username} pageNum: ${pageNum}, pageSize: ${pageSize}`);
     return [];
   } finally {
     await txn.discard();
@@ -369,6 +385,7 @@ async function GetFollowingPosts(
   pageSize: number = 5
 ): Promise<PostNeo[]> {
   pageSize = Math.min(pageSize, 50);
+  pageNum = Math.min(pageNum, 50);
   const vars = {
     $a: username,
     $o: String(pageNum * pageSize),
@@ -379,6 +396,7 @@ async function GetFollowingPosts(
     const res = await txn.queryWithVars(GetFollowingPostsQuery, vars);
     return res.getJson().posts as PostNeo[];
   } catch (err) {
+    console.error(err, `Get Following Posts failed with username: ${username} pageNum: ${pageNum}, pageSize: ${pageSize}`);
     return [];
   } finally {
     await txn.discard();
@@ -398,6 +416,7 @@ async function GetUserPosts(
   pageSize: number = 5
 ): Promise<PostNeo[]> {
   pageSize = Math.min(pageSize, 50);
+  pageNum = Math.min(pageNum, 50);
   const vars = {
     $a: username,
     $o: String(pageNum * pageSize),
@@ -409,6 +428,7 @@ async function GetUserPosts(
     if (res.getJson().findProfile.length <= 0) return [];
     return res.getJson().findProfile[0]["Profile.posts"] as PostNeo[];
   } catch (err) {
+    console.error(err, `Get User Posts failed with username: ${username} pageNum: ${pageNum}, pageSize: ${pageSize}`);
     return [];
   } finally {
     await txn.discard();
@@ -429,6 +449,7 @@ async function GetUserD(username: string): Promise<IUser> {
     if (user.getJson().findProfile.length <= 0) return null;
     return user.getJson().findProfile[0] as IUser;
   } catch (err) {
+    console.error(err, `Get User D failed with username: ${username}`);
     return;
   } finally {
     await txn.discard();
@@ -448,6 +469,7 @@ async function IsFollowingUser(
     if (user.getJson().findProfile.length <= 0) return false;
     return true;
   } catch (err) {
+    console.error(err, `IsFollowingUser failed with username: ${username}, followiungUsername: ${followingUsername}`);
     return false;
   } finally {
     await txn.discard();
@@ -476,6 +498,7 @@ async function GetProfileUid(username: string): Promise<string | false> {
     }
     return false;
   } catch (err) {
+    console.error(err, `Get Profile Uid failed with username: ${username}`);
     return false;
   } finally {
     await txn.discard();
@@ -507,6 +530,7 @@ async function GetHashtagUid(hashtag: string): Promise<string | false> {
     }
     return hashtagUid.getJson().findHashtag[0].uid;
   } catch (err) {
+    console.error(err, `GetHashtagUid something went wrong with hashtag: ${hashtag}`);
     return false;
   } finally {
     await txn.discard();
@@ -526,6 +550,7 @@ async function GetPinnedHashtags(
   pageSize: number = 5
 ): Promise<string[]> {
   pageSize = Math.min(pageSize, 50);
+  pageNum = Math.min(pageNum, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     const hashtags = await txn.queryWithVars(GetPinnedHashtagsQuery, {
@@ -542,6 +567,7 @@ async function GetPinnedHashtags(
     }
     return hashtagArr;
   } catch (err) {
+    console.error(err, `Get Pinned Hashtags failed with username: ${username}, pageNum: ${pageNum}, pageSize: ${pageSize}`);
     return [];
   } finally {
     await txn.discard();
@@ -559,6 +585,7 @@ async function GetMostPinnedHashtags(
   pageSize: number = 5
 ): Promise<IDHashtag[]> {
   pageSize = Math.min(pageSize, 50);
+  pageNum = Math.min(pageNum, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     const hashtags = await txn.queryWithVars(GetMostPinnedHashtagsQuery, {
@@ -568,6 +595,7 @@ async function GetMostPinnedHashtags(
 
     return hashtags.getJson().topHashtags as IDHashtag[];
   } catch (err) {
+    console.error(err, `Get Most Pinned Hashtags failed with pageNum: ${pageNum}, pageSize: ${pageSize}`);
     return [];
   } finally {
     await txn.discard();
@@ -586,6 +614,7 @@ async function GetMostFollowedUser(
   pageSize: number = 5
 ): Promise<IMiniUser[]> {
   pageSize = Math.min(pageSize, 50);
+  pageNum = Math.min(pageNum, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     let query = MostFollowedUsersQuery;
@@ -600,6 +629,7 @@ async function GetMostFollowedUser(
     const users = await txn.queryWithVars(query, vars);
     return users.getJson().findUser as IMiniUser[];
   } catch (err) {
+    console.error(err, `Get Most Followed User failed with username: ${username}, pageNum: ${pageNum}, pageSize: ${pageSize}`);
     return [];
   } finally {
     await txn.discard();
@@ -618,6 +648,7 @@ async function GetComments(
   pageSize: number = 5
 ): Promise<IComment[]> {
   pageSize = Math.min(pageSize, 50);
+  pageNum = Math.min(pageNum, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     const comments = await txn.queryWithVars(GetCommentsQuery, {
@@ -644,6 +675,7 @@ async function GetComments(
     }
     return returnComments;
   } catch (err) {
+    console.error(err, `Get Comments failed with pageNum: ${pageNum}, pageSize: ${pageSize}`);
     return [];
   } finally {
     await txn.discard();
@@ -670,6 +702,7 @@ async function GetCommentUid(commentId: string): Promise<string | false> {
 
     return commentUid.getJson().findComment[0].uid as string;
   } catch (err) {
+    console.error(err, `Get Comment Uid failed with commentId: ${commentId}`);
     return false;
   } finally {
     await txn.discard();
@@ -682,6 +715,7 @@ async function GetBlockedUsers(
   pageSize: number = 5
 ): Promise<string[]> {
   pageSize = Math.min(pageSize, 50);
+  pageNum = Math.min(pageNum, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     const blockedUsers = await txn.queryWithVars(GetBlockedUsersQuery, {
@@ -696,6 +730,7 @@ async function GetBlockedUsers(
     }
     return blockedUsersArr;
   } catch (err) {
+    console.error(err, `Get Blocked Users failed with username: ${username}, pageNum: ${pageNum}, pageSize: ${pageSize}`);
     return [];
   } finally {
     await txn.discard();
@@ -708,6 +743,7 @@ async function GetFollowRequests(
   pageSize: number = 5
 ): Promise<IMiniUser[]> {
   pageSize = Math.min(pageSize, 50);
+  pageNum = Math.min(pageNum, 50);
   const txn = dgraphClient.newTxn({ readOnly: true });
   try {
     const followRequests = await txn.queryWithVars(GetFollowRequestsQuery, {
@@ -727,6 +763,7 @@ async function GetFollowRequests(
     }
     return followRequestsArr;
   } catch (err) {
+    console.error(err, `Get Follow Requests failed with username: ${username}, pageNum: ${pageNum}, pageSize: ${pageSize}`);
     return [];
   } finally {
     await txn.discard();
