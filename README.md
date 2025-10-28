@@ -5,8 +5,6 @@
 
 ![App Store Image](app_store_image_of_app.PNG)  
 
-**Status:** Coming Soon / Not Open Source Yet  
-
 ## Description
 A cross-platform (web, Android, iOS) social media app that supports creation of webpages containing videos, images, and stylized text.
 
@@ -44,7 +42,4 @@ The app is built with a modern and scalable tech stack:
 - **Mixpanel** – For usage analytics
 
 ## Demo
-
----
-
-Note: This app is currently private and not open-source. Stay tuned...
+TODO
